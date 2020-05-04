@@ -77,6 +77,7 @@ return [
             'sslmode' => 'prefer',
             'schema' => 'public',
         ],
+        
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

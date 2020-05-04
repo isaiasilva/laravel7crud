@@ -24,6 +24,7 @@ class CreateEleitoresTable extends Migration
         });
     }
 
+    
     /**
      * Reverse the migrations.
      *
