@@ -1,6 +1,5 @@
 @extends('eleitores.layout')
 @section('content')
-<div class="row">
     <div class="col-lg-12" style="text-align: center">
         <div>
             <br>
@@ -8,33 +7,37 @@
         </div>
         <br />
     </div>
-</div>
-<div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-">
-            <a href="javascript:void(0)" class="btn btn-success mb-2" id="new-pesquisa" data-toggle="modal">Responder Pesquisa
-            </a> <br>
-            <a href="javascript:void(0)" class="btn btn-success mb-2" id="new-eleitor" data-toggle="modal">Novo
-                Eleitor</a>
+            <a href="javascript:void(0)" class="btn btn-success mb-2" id="new-eleitor" data-toggle="modal">Novo Eleitor</a>
+            <a href="javascript:void(0)" class="btn btn-success mb-2" id="new-pesquisa" data-toggle="modal">Responder Pesquisa</a> 
+          
         </div>
     </div>
-</div>
+
 <br />
 @if ($message = Session::get('success'))
 <div class="alert alert-success">
     <p id="msg">{{ $message }}</p>
 </div>
 @endif
-<table class="table table-bordered">
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Telefone</th>
-        <th>Localidade</th>
-        <th>Endereço</th>
-        <th width="280px">Ações</th>
-    </tr>
 
+
+<body>
+<link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
+<table id="minhaTabela" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Localidade</th>
+            <th>Endereço</th>
+            <th width="280px">Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
     @foreach ($eleitores as $eleitor)
     <tr id="eleitor_id_{{ $eleitor->id }}">
         <td>{{ $eleitor->id }}</td>
@@ -47,15 +50,41 @@
                 <a class="btn btn-info" id="show-eleitor" data-toggle="modal" data-id="{{ $eleitor->id }}">Visualizar</a>
                 <a href="javascript:void(0)" class="btn btn-success" id="edit-eleitor" data-toggle="modal"
                     data-id="{{ $eleitor->id }}">Editar </a>
-                <meta name="csrf-token" content="{{ csrf_token() }}">
+
+                <meta name="csrf-token" content="{{csrf_token()}}">
                 <a id="delete-eleitor" data-id="{{ $eleitor->id }}" class="btn btn-danger">Excluir</a>
+                
         </td>
         </form>
         </td>
     </tr>
     @endforeach
+</tbody>
 
 </table>
+
+<script>
+    function Evento()
+        <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    
+</script>
+
+
+<script>
+$(document).ready(function(){
+    $('#minhaTabela').DataTable({
+          "language": {
+              "lengthMenu": "Mostrando _MENU_ registros por página",
+              "zeroRecords": "Nada encontrado",
+              "info": "Mostrando página _PAGE_ de _PAGES_",
+              "infoEmpty": "Nenhum registro disponível",
+              "infoFiltered": "(filtrado de _MAX_ registros no total)"
+          }
+      });
+});
+</script>
+
 {!! $eleitores->links() !!}
 <div class="modal fade" id="crud-modalPesquisa" aria-hidden="true">
     <div class="modal-content">
@@ -113,11 +142,12 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>Telefone:</strong>
-                                <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone"
-                                    onchange="validate()">
+                                <strong>Telefone (WhatsApp):</strong>
+                                <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Informe no formato: 99999-9999" required>
+                               
                             </div>
                         </div>
+                       
                          <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Localidade:</strong>

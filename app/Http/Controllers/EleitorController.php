@@ -20,12 +20,16 @@ class EleitorController extends Controller
 		return view('eleitores.index',compact('eleitores'))->with('i', (request()->input('page', 1) - 1) * 10);
 	}
 
+        
+        
 	/**
 	* Show the form for creating a new resource.
 	*
 	* @return \Illuminate\Http\Response
 	*/
 
+        
+        
 	public function create()
 	{
 		return view('eleitor.create');
@@ -70,6 +74,7 @@ class EleitorController extends Controller
 		return view('eleitores.show',compact('eleitor'));
 	}
 
+
 	/**
 	* Show the form for editing the specified resource.
 	*
@@ -106,7 +111,22 @@ class EleitorController extends Controller
 
 	public function destroy($id)
 	{
+		var_dump($id);
 		$cust = Eleitor::where('id',$id)->delete();
 		return Response::json($cust);
 	}
+
+	//Buscar Eleitores
+	public function busca(Request $request) {
+		// var_dump($request->eleitores);
+
+		// 	$pessoas = Eleitor::where('nome', 'LIKE', '%'.'$request->eleitores'.'%')->get();
+		// 	return view('eleitores.index',[
+		// 	'eleitor' => $pessoas, 
+		// 		'eleitores'=>  $request->eleitores
+		// ]);
+	}
+	
+	
+			
 }

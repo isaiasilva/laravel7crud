@@ -55,19 +55,20 @@
         });
         /* Delete eleitor */
         $('body').on('click', '#delete-eleitor', function() {
-            var eleitor_id = $(this).data("id");
+            var id = $(this).data("id");
+        
             var token = $("meta[name='csrf-token']").attr("content");
-            confirm("Tem deseja que deseja deletar este registro? !");
+            confirm("Tem certeza que deseja deletar este registro?");
             $.ajax({
                 type: "DELETE",
-                url: "http://localhost/laravel7crud/public/eleitores/" + eleitor_id,
+                url: "http://localhost/laravel7crud/public/eleitores/" + id,
                 data: {
-                    "id": eleitor_id,
+                    "id": id,
                     "_token": token,
                 },
                 success: function(data) {
                     $('#msg').html('Eleitor excluído com sucesso!');
-                    $("#eleitor_id_" + eleitor_id).remove();
+                    $("#id_" + id).remove();
                 },
                 error: function(data) {
                     console.log('Error:', data);
